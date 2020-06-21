@@ -11,13 +11,14 @@ import com.barmej.apod.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 /*
   A fragment that show information about the purpose of this app and displays Nasa Logo Nasa  ,
  */
 
-public class AboutFragment extends Fragment {
+public class AboutFragment extends DialogFragment {
 
     private TextView aboutTitleTextView;
     private TextView aboutTextTextView;

@@ -35,7 +35,9 @@ import com.ortiz.touchview.TouchImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
        Create Calender object to choose date to show picture/video
         */
         Calendar newCalender = Calendar.getInstance();
-        newDate = String.format( "%d-%d-%d", newCalender.get( Calendar.YEAR ), newCalender.get( Calendar.MONTH ), newCalender.get( Calendar.DAY_OF_MONTH ) );
+        newDate = String.format( Locale.getDefault(), "%d-%d-%d", newCalender.get( Calendar.YEAR ), newCalender.get( Calendar.MONTH ), newCalender.get( Calendar.DAY_OF_MONTH ) );
         requestApod( newDate );
     }
 
@@ -153,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest( Request.Method.GET, networkUtils.buildUrl( date ).toString(), null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                int a = 0;
                 try {
 
                     astronomy = DataParser.parseJson( response );
@@ -212,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_pick_day) {
             //Open datePicker to select date
             Calendar calendar = Calendar.getInstance();
+
             int year = calendar.get( Calendar.YEAR );
             int month = calendar.get( Calendar.MONTH );
             int dayOfMonth = calendar.get( Calendar.DAY_OF_MONTH );
@@ -220,7 +222,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                     Calendar newCalender = Calendar.getInstance();
                     newCalender.set( year, month, dayOfMonth );
-                    newDate = String.format( "%d-%d-%d", year, month, dayOfMonth );
+
+                    newDate = String.format( Locale.getDefault(),"%d-%d-%d", year, month, dayOfMonth );
                     requestApod( newDate );
 
                 }
@@ -232,8 +235,6 @@ public class MainActivity extends AppCompatActivity {
 
             if (id == R.id.action_about) {
                 //Open a dialoge that show short description about the project
-                homeLayout.setVisibility( View.GONE );
-                bottomSheet.setVisibility( View.GONE );
                 showAboutFragment();
                 return true;
 
@@ -270,12 +271,8 @@ public class MainActivity extends AppCompatActivity {
      showAboutFragment method
      */
     private void showAboutFragment() {
-        AboutFragment aboutFragment = new AboutFragment();
-        mFragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.replace( R.id.fragment_container, aboutFragment );
-        fragmentTransaction.addToBackStack( null );
-        fragmentTransaction.commit();
+        AboutFragment dialogFragment = new AboutFragment();
+        dialogFragment.show( getSupportFragmentManager(), "AboutFragment");
     }
 
     /*
