@@ -276,16 +276,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     onBackPressed method to hide AboutFragmnet and returnBack to homeLayout
-     */
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        homeLayout.setVisibility( View.VISIBLE );
-        bottomSheet.setVisibility( View.VISIBLE );
-    }
-
-    /*
       downLoadHd method to allow user downloading HD image
      */
     private void downloadHd() {
